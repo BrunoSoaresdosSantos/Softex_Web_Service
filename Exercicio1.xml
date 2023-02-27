@@ -1,0 +1,50 @@
+
+<definitions name="clienteService" targetNamespace="http://exemplo.com/clienteService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://exemplo.com/clienteService">
+  <types>
+    <xsd:schema targetNamespace="http://exemplo.com/clienteService">
+      <xsd:element name="nome" type="xsd:string" />
+      <xsd:element name="endereco" type="xsd:string" />
+      <xsd:element name="telefone" type="xsd:string" />
+    </xsd:schema>
+  </types>
+  <message name="getClienteRequest">
+    <part name="nome" type="xsd:string" />
+  </message>
+  <message name="getClienteResponse">
+    <part name="endereco" type="xsd:string" />
+    <part name="telefone" type="xsd:string" />
+  </message>
+  <portType name="clientePortType">
+    <operation name="getCliente">
+      <input message="tns:getClienteRequest" />
+      <output message="tns:getClienteResponse" />
+    </operation>
+  </portType>
+  <binding name="clienteBinding" type="tns:clientePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getCliente">
+      <soap:operation soapAction="http://exemplo.com/clienteService#getCliente" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="clienteService">
+    <port name="clientePort" binding="tns:clienteBinding">
+      <soap:address location="http://exemplo.com/clienteService" />
+    </port>
+  </service>
+</definitions>
+<!--REQUISIÇÃo SOAP-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://exemplo.com/clienteService">
+  <soap:Body>
+    <tns:getClienteRequest>
+      <nome>João</nome>
+    </tns:getClienteRequest>
+  </soap:Body>
+</soap:Envelope>
+<!--RESPOSA SOAP-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://
